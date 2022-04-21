@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+
+  <script>
+    //関数
+    function test1(){
+      return '関数1';
+    }
+
+    console.log(test1());
+
+    //変数・定数
+
+    // const test2 = function(){
+    //   return 'test2';
+    // }
+
+    const test2 = () => {
+      return 'test2';
+    }
+
+    console.log(test2());
+
+
+    // Promise
+    // 1 状態(ok/ng)と値
+    // 2 Promiseチェーン
+
+    // callback
+    // 引数が状態 ok, ng (1でも可)
+    function promiseTest1(){ //インプットなし
+      return new Promise( ok => {
+        //何かしらの処理
+        ok('プロミス1です');
+
+      });
+    }
+
+    console.log(promiseTest1());
+
+    const promiseTest2 = new Promise( ok => {
+      ok('プロミス2です');
+    });
+
+    console.log(promiseTest2);
+
+    function testPromise3(input){
+      return new Promise(ok => {
+        //何かしら処理
+        ok(`プロミス${input}です`);
+      });
+    };
+
+    console.log(testPromise3('太郎'));
+
+    // Promiseチェーン
+    // Promise .then(ok_callback, ng_callback)
+    // Promise .then((ok_value) => {}, (ng_reason) => {})
+    // Promise .catch(ng_callback) //NGはcatch
+    // Promise .catch((ng_reason) => {}) //NGはcatch
+
+    // new promise((ok, ng)=>{})
+    // function promiseTest4(pay){
+    //   return new Promise( (ok, ng) => {
+    //     if(pay > 100){
+    //       let change = pay - 100;
+    //       ok(change);
+    //     }
+    //     ng('お金が足りません');
+    //   })
+    // }
+
+    // console.log(promiseTest4(80).catch( e =>{console.log(e)}));
+
+    // promiseTest4(180).then( change1 => {
+    //   console.log(change1);
+    //   return promiseTest4(change1);//Promiseでラップ
+    // }).then(change2 =>{
+    //   console.log(change2);
+    // }).catch(e => console.log(e));
+
+    console.log(1);
+    promiseTest(300, 2)
+    .then(change1 => promiseTest(change1, 3))
+    .then(change2 => promiseTest(change2, 2))
+    .catch(e => console.log(e));
+    console.log(3);
+
+    // サーバーとのやり取りなど時間がかる処理 かかる時間がわからない
+    // 通信速度、サーバー負荷、処理に時間がかかったり
+    // setTimeout
+    function promiseTest(pay, seconds){
+      return new Promise( (ok, ng) => {
+        setTimeout(()=>{
+          if(pay > 100){
+            let change = pay - 100;
+            console.log(`${seconds}秒、おつりは${change}です`);
+            ok(change);
+          }
+          ng('お金が足りません');
+        }, seconds * 1000)
+
+      })
+    }
+
+  </script>
+</body>
+</html>

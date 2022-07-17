@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+
+  <form id="post_form">
+    氏名<input type="text" name="your_name" value="氏名"><br>
+    コメント<input type="text" name="comment" value="コメント"><br>
+    <button id="button" type="button">送信</button>
+  </form>
+
+
+  <script>
+    const url = 'https://coinbaby8.com/udemy_js_api/api/udemy_js';
+
+    const get_options = {
+      method: 'get'
+    };
+
+    const getFormData = fetch(url, get_options)
+    .then( response => response.json());
+    console.log(getFormData);
+
+    const postForm = document.forms.post_form;
+    const formData = new FormData(postForm);
+    // console.log(formData);
+
+    // URLを生成するサンプル
+    // 日本語はURLエンコード必要
+    const your_name = encodeURI(formData.get('your_name'));
+
+    const stringJoin = '?' + 'your_name' + '=' + your_name + '&';
+
+    console.log(stringJoin);
+
+    // for( let fd of formData.entries()){
+    //   console.log(`${fd[0]}: ${fd[1]}`)
+    // }
+
+  document.getElementById('button')
+  .addEventListener('click', () =>{
+    const postForm = document.forms.post_form;
+    const formData = new FormData(postForm);
+
+    const url = 'https://coinbaby8.com/udemy_js_api/api/udemy_js';
+
+    const post_options = {
+      method: 'post',
+      body: formData
+    };
+
+      fetch(url, post_options)
+      .then( response => {
+        if( response.ok ){
+          return response.text();
+        } else {
+          return new Error();
+        }
+    })
+    .then( text => console.log(text))
+    .catch( error => console.log(error));
+
+  })
+
+
+  </script>
+</body>
+</html>

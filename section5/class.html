@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+
+  <script>
+    class BaseProduct{
+
+      echoProduct(){
+        console.log('親クラスです');
+      }
+
+      //子クラスで同じ関数名 上書きされますsaremasu
+      //子クラスの方が優先
+      getProduct(){
+        console.log('親の関数です');
+      }
+
+    }
+
+    class Product extends BaseProduct { // パスカルケース、アッパーキャメルケース
+    //1ファイル 1クラス
+
+      //プロパティ(値)は
+      // 関数内(constructorなど)に
+      // $this.xxx = xxx;
+
+      // クラス直下でかくなら
+      // babelが必要
+
+      constructor(productName){ //一回だけ使える関数 必ず最初に実行
+        // this.product = productName;
+        super(); //子クラスでconstructor使うなら必須 親クラスのcontructorを参照
+        this.product = [productName];
+      }
+
+      // メソッド(関数)は functionは不要
+      getProduct(){
+        console.log(this.product);
+      }
+
+      addPRoduct(item){
+        // this.product += item;
+        this.product.push(item);
+      }
+
+      static testProduct(){
+        console.log('静的メソッドです');
+      }
+
+    }
+
+    Product.testProduct();
+
+    const product = new Product('りんご');
+    console.log(product.product);
+
+    product.getProduct();
+    product.addPRoduct('追加分です');
+    product.getProduct();
+    product.echoProduct();
+
+
+  </script>
+</body>
+</html>

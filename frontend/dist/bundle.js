@@ -1,0 +1,1 @@
+(()=>{"use strict";console.log("webpackテストです"),window.addEventListener("load",(function(){alert("babelテストです")}))})();

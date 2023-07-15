@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.7.2/font/bootstrap-icons.css">
+</head>
+<body>
+    <div class="container d-flex align-items-center justify-content-center" style="height: 100vh;">
+        <div class="card col-lg-6 col-md-8 col-sm-10">
+            <div id="inputTitle" class="card-header">利用者情報の入力</div>
+            <div id="confirmTitle" class="card-header" style="display: none;">利用者情報の確認</div>
+            <div id="completeTitle" class="card-header" style="display: none;">利用者情報の登録完了</div>
+            <div class="card-body">
+                <form id="userForm" onsubmit="event.preventDefault(); validateForm();">
+                    <div id="inputSection">
+                        <div class="form-group">
+                            <label for="name">名前: <span class="badge badge-required">必須</span></label>
+                            <input type="text" id="name" name="name" class="form-control">
+                            <small id="nameError" class="form-text text-danger" style="display:none">入力してください</small>
+                        </div>
+                        <div class="form-group">
+                            <label for="email">メールアドレス: <span class="badge badge-required">必須</span></label>
+                            <input type="email" id="email" name="email" class="form-control">
+                            <small id="emailError" class="form-text text-danger" style="display:none">入力してください</small>
+                        </div>
+                        <div class="form-group">
+                            <label for="password">パスワード: <span class="badge badge-required">必須</span></label>
+                            <input type="password" id="password" name="password" class="form-control">
+                            <small id="passwordError" class="form-text text-danger" style="display:none">入力してください</small>
+                        </div>
+                        
+                        <button id="nextButton" class="btn btn-primary" onclick="validateForm()">確認</button>
+                    </div>
+
+                    <div id="confirmSection" style="display: none;">
+                        <div class="form-group">
+                            <label for="confirmName">名前:</label>
+                            <p id="confirmName" class="form-control-plaintext"></p>
+                        </div>
+                        <div class="form-group">
+                            <label for="confirmEmail">メールアドレス:</label>
+                            <p id="confirmEmail" class="form-control-plaintext"></p>
+                        </div>
+                        <div class="form-group">
+                            <label for="confirmPassword">パスワード:</label>
+                            <p id="confirmPassword" class="form-control-plaintext">********</p>
+                        </div>
+                        <div class="d-flex justify-content-between">
+                            <button id="backButton" class="btn btn-secondary" onclick="event.preventDefault(); backToInput();">戻る</button>
+                            <button id="myButton" class="btn btn-primary d-flex align-items-center" onclick="disableButton()">
+                                <span id="buttonText">登録</span>
+                                <div id="loadingSpinner" class="spinner-border spinner-border-sm" style="display: none;"></div>
+                                <i id="completeIcon" class="bi bi-check" style="display: none;"></i>
+                            </button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>
